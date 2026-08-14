@@ -1,3 +1,4 @@
+//Deployment Config file
 require("dotenv").config();
 const OpenAI = require("openai");
 const fs = require("fs");
