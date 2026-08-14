@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
 
+// Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -39,6 +40,7 @@ const executeScript = (filePath) => {
   });
 };
 
+// Generate EC2 configuration script using OpenAI
 async function configure() {
   console.log("Configuring...");
   try {
