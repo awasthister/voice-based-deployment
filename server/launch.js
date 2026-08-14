@@ -1,13 +1,16 @@
+// Load environment variables from the .env file
 require("dotenv").config();
 const { exec } = require("child_process");
 const OpenAI = require("openai");
 const fs = require("fs");
 const path = require("path");
 
+// Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Generate and launch an EC2 instance script
 async function launch(message) {
   const envFilePath = path.join(".env");
   try {
@@ -19,6 +22,7 @@ async function launch(message) {
       console.error(`.env file not found at path: ${envFilePath}`);
     }
 
+    // Generate the EC2 launch script using OpenAI
     const response = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
@@ -38,6 +42,7 @@ async function launch(message) {
   }
 }
 
+// Extract JavaScript code and save it to a temporary file
 const cleanScript = (rawCode, filename, message) => {
   try {
     const cleanedCode = rawCode.split("```javascript")[1].split("```")[0];
@@ -50,6 +55,7 @@ const cleanScript = (rawCode, filename, message) => {
   }
 };
 
+// Execute the generated script
 const executeScript = (filePath, message) => {
   exec(`node "${filePath}"`, (error, stdout, stderr) => {
     fs.rmSync(filePath);
