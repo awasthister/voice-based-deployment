@@ -5,7 +5,7 @@ const { NodeSSH } = require('node-ssh');
 const { EC2Client, DescribeInstancesCommand } = require("@aws-sdk/client-ec2");
 const dotenv = require('dotenv');
 
-// Load environment variables
+// Load configuration from environment variables
 dotenv.config();
 const { AWS_REGION, EC2_USER, KEY_PATH, INSTANCE_ID } = process.env;
 
